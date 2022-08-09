@@ -1,5 +1,30 @@
-const todayDateAndTime = "2016-05-18T11:27:00";
+const availablityData = require("./availabilityDates.json");
+
+const todayDateAndTime = document.getElementById("todayDate").innerHTML;
+const availabilityBtns = document.querySelectorAll(".btn");
+const jobLength = document.getElementById("myRange").value;
 const todayDate = todayDateAndTime.slice(0, 10);
+
+const dates = document.querySelectorAll(".date");
+
+const availabilityHoursArr = [];
+
+for (let i = 0; i < availablityData.length; i++) {
+  availabilityHoursArr.push(availablityData[i].HoursAvailable);
+}
+
+const buttonSelector = () => {
+  for (let i = 0; i < availabilityBtns.length; i++) {
+    availabilityBtns[i].addEventListener("click", () => {
+      if (availabilityBtns[i].innerHTML === "Available") {
+        console.log("true");
+        availabilityBtns[i].innerHTML = "Selected";
+      }
+    });
+  }
+};
+
+buttonSelector();
 
 const currentTime = () => {
   slicedTime = todayDateAndTime.slice(11, 16);
@@ -14,7 +39,6 @@ const checkSlotAvailability = (time, jobLength, date, availability) => {
   if (date === todayDate) {
     return presentDay(time, jobLength, availability);
   }
-
   return checkAvailabilityStatus(time, jobLength, availability);
 };
 
@@ -58,6 +82,6 @@ const presentDay = (time, jobLength, availability) => {
   }
 };
 
-console.log(
-  checkSlotAvailability(1, 1, "2016-05-18", [9, 10, 11, 12, 13, 14, 17])
-);
+// console.log(
+//   checkSlotAvailability(1, 1, "2016-05-18", [9, 10, 11, 12, 13, 14, 17])
+// );
